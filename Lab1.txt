@@ -1,0 +1,18 @@
+import tensorflow as tf        #tensorflow를 가져온다.
+
+node1 = tf.constant("Hello, World!!")    #상수 텐서 node1 생성 후 Hello, World!!를 집어넣는다.
+
+a = tf.constant(3.00, tf.float32)    #상수 텐서 a 생성 후 3.00을 실수형으로 집어넣는다.
+b = tf.constant(4.00, tf.float32)    #상수 텐서 b 생성 후 4.00을 실수형으로 집어넣는다.
+c = tf.add(a, b)                     #tensorflow의 add함수를 불러와서 a와 b를 매겨변수로 사용한다. a+b와 동일
+
+node2 = tf.placeholder(tf.float32)   #값을 넣을 수 있는 텐서 node 2를 생성
+
+sess = tf.Session()                  #session 객체를 생성
+
+print(sess.run(node1))                           #그래프 실행 및 출력
+print(sess.run([a, b, c]))
+print(sess.run(node2, feed_dict={node2:3}))      #feed_dict로 빈 노드에 값 제공
+
+#tensorflow의 함수를 사용하려면 tf.(함수명)을 사용해야 한다
+#feed_dict는 여러 차원에서 가능(ex) 1.0, [1.0, 5.0] [[1.0, 5.0], [3.0]. [7.0]]
