@@ -1,0 +1,21 @@
+import tensorflow as tf
+
+X = [1,2,3]
+Y = [1,2,3]
+
+W = tf.Variable(tf.random_normal([1]), name = 'weight')      #난수 생성
+b = tf.Variable(tf.random_normal([1]), name = 'bias')
+
+hypothesis = W*X + b
+cost = tf.reduce_mean(tf.square(hypothesis - Y))                    #square은 제곱 reduce_mean은 평균
+
+optimizer = tf.train.GradientDescentOptimizer(learning_rate = 0.01) #gradientdescent를 0.01간격으로 내려감
+train = optimizer.minimize(cost)                                        #cost가 최소가 될 때	
+
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())                                 #초기화를 해야 값이 들어감
+
+for step in range(2001):                                                    #2001번 반복
+    sess.run(train)                                                             #반복이 끝날 때까지 학습
+    if step % 20 == 0:                                                        #20번 단위로 상황을 출력
+        print(step, sess.run(cost), sess.run(W), sess.run(b))

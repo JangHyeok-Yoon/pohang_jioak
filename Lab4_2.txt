@@ -1,0 +1,27 @@
+import tensorflow as tf
+import numpy as np
+
+tf.set_random_seed(777)
+
+xy = np.loadtxt('CUsers82108OneDrive바탕 화면data-01-test-score.csv', delimiter=',', dtype=np.float32) #파일을 읽을 때 ,로 구분하고 그 데이터타입은 float이다
+x_data = xy[, 0-1]   #파일의 matrix에서 마지막 것을 제외한 나머지
+y_data = xy[, [-1]]   #파일의 각 matrix의 마지막 숫자
+
+x = tf.placeholder(tf.float32, shape=[None, 3])
+y = tf.placeholder(tf.float32, shape=[None, 1])
+
+w = tf.Variable(tf.random_normal([3, 1]))
+b = tf.Variable(tf.random_normal([1]))
+
+hypothesis = tf.matmul(x, w) + b
+cost = tf.reduce_mean(tf.square(hypothesis - y))
+
+train = tf.train.GradientDescentOptimizer(learning_rate=1e-5).minimize(cost)
+
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+
+for step in range(2001)
+    costValue, hypValue, _ = sess.run([cost, hypothesis, train], feed_dict={x x_data, y y_data})
+    if step % 20 == 0
+        print(step, costValue, hypValue)
